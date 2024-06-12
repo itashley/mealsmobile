@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
+import LoginScreenCopy from "./screens/LoginScreenCopy";
 import HomeScreen from "./screens/HomeScreen";
 import FormScreen from "./screens/FormScreen";
 import HistoryListScreen from "./screens/HistoryListScreen";

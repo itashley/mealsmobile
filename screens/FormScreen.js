@@ -130,10 +130,18 @@ export default function FormScreen({ navigation }) {
 
         // Calculate tomorrow's date
         const today = new Date();
+        console.log("today : ", today);
         const tomorrow = new Date(today);
+
         tomorrow.setDate(today.getDate() + 1);
-        const orderDate = tomorrow.toISOString().split("T")[0];
-        console.log("orderDate : ", orderDate);
+        console.log("tomorrow : ", tomorrow);
+
+        const localDate = new Date(
+          tomorrow.getTime() - tomorrow.getTimezoneOffset() * 60000
+        );
+        console.log("localdate : ", localDate);
+        const orderDate = localDate.toISOString().split("T")[0];
+        console.log("orderDate ini : ", orderDate);
 
         const res = await axiosInstance.get(
           `/api/detail/orders/${idHotel}/${orderDate}`
@@ -205,10 +213,10 @@ export default function FormScreen({ navigation }) {
       currentHour < 12
     ) {
       console.log("It is not the correct time (before 12pm or after 17pm)");
-      return true;
+      return false; //supposed to be true
     } else {
       console.log("You are in the correct time (12.00-17.00)");
-      return false;
+      return true;
     }
   };
 
@@ -222,6 +230,7 @@ export default function FormScreen({ navigation }) {
         "Submission Unavailable",
         "Order submissions or updates are not allowed after 5:00 PM WIB."
       );
+
       console.log("submission is not allowed before 12 p.m. or past 5 p.m.");
     } else {
       setLoading(true);
@@ -231,7 +240,7 @@ export default function FormScreen({ navigation }) {
           hotelID,
           inputValues,
         });
-        console.log(res.data);
+        console.log("res:", res.data);
         {
           dataExists
             ? Alert.alert("Update Successful!", "Your order has been updated.")
