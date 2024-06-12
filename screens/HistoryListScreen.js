@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
-import axiosInstance from '../axiosConfig'; 
-import { View, Text, StyleSheet, Pressable, ImageBackground, ScrollView, ActivityIndicator } from 'react-native';
-import BG from '../assets/bg/bg.jpg';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Moment from 'moment';
-
+import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import axiosInstance from "../axiosConfig";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ImageBackground,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import BG from "../assets/bg/bg.jpg";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Moment from "moment";
 
 export default function HistoryListScreen({ navigation }) {
   const [listOrder, setListOrder] = useState([]);
@@ -13,13 +20,14 @@ export default function HistoryListScreen({ navigation }) {
   const [userID, setUserID] = useState();
   const [hotelID, setHotelID] = useState();
 
-  const getHistoryOrder = async (hotelID) => {
+  const getHistoryOrder = async (hID) => {
     try {
       setLoading(true);
-      const res = await axiosInstance.get(`/api/list/orders/${hotelID}`);
+      const res = await axiosInstance.get(`/api/list/orders/${hID}`);
       setListOrder(res.data.data);
+      console.log("res data data", res.data.data);
     } catch (error) {
-      console.error('Error fetching orders:', error);
+      console.error("Error fetching orders:", error);
     } finally {
       setLoading(false);
     }
@@ -29,33 +37,34 @@ export default function HistoryListScreen({ navigation }) {
     React.useCallback(() => {
       const fetchUser = async () => {
         try {
-          const userData = await AsyncStorage.getItem('user');
+          const userData = await AsyncStorage.getItem("user");
           if (userData) {
             const user = JSON.parse(userData);
             setUserID(user.id);
             setHotelID(user.hotel_id);
             getHistoryOrder(user.hotel_id);
+            console.log("user hotel: ", user.hotel_id);
           } else {
-            console.error('User data not found in AsyncStorage');
+            console.error("User data not found in AsyncStorage");
             setLoading(true); // Set loading to false if user data is not found
           }
         } catch (error) {
-          console.error('Error fetching user data from AsyncStorage:', error);
+          console.error("Error fetching user data from AsyncStorage:", error);
           setLoading(true); // Set loading to false if there's an error
         }
       };
-  
+
       fetchUser();
-      
+
       return () => {
-        console.log('Screen Unfocused');
+        console.log("Screen Unfocused");
       };
     }, [])
   );
 
   const handleDetailOrder = async (orderDate) => {
     setLoading(true);
-    navigation.navigate('Detail Order', { orderDate });
+    navigation.navigate("Detail Order", { orderDate });
   };
 
   return (
@@ -72,10 +81,19 @@ export default function HistoryListScreen({ navigation }) {
               <Text style={styles.noRecordsText}>No Records Available</Text>
             ) : (
               <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                {listOrder.map(order => (
-                  <Pressable key={order.id_order} style={styles.orderContainer} onPress={() => handleDetailOrder(order.order_date)}>
-                    <Text style={styles.orderText}>Order ID: {order.id_order}</Text>
-                    <Text style={styles.orderDate}>Date: {Moment(order.order_date).format('LL')}</Text>
+                {listOrder.map((order) => (
+                  <Pressable
+                    key={order.id_order}
+                    style={styles.orderContainer}
+                    onPress={() => handleDetailOrder(order.order_date)}
+                  >
+                    <Text style={styles.orderText}>
+                      {/* Order ID: {order.id_order} */}
+                      {Moment(order.order_date).format("dddd")}
+                    </Text>
+                    <Text style={styles.orderDate}>
+                      {Moment(order.order_date).format("LL")}
+                    </Text>
                   </Pressable>
                 ))}
               </ScrollView>
@@ -90,11 +108,11 @@ export default function HistoryListScreen({ navigation }) {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   safeArea: {
     flex: 1,
-    marginTop: '20%',
+    marginTop: "20%",
   },
   container: {
     flex: 1,
@@ -106,29 +124,29 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   loadingText: {
     marginTop: 20,
     fontSize: 18,
-    color: '#000000',
+    color: "#000000",
   },
   noRecordsText: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
     fontSize: 18,
-    marginTop: '50%',
-    color: '#000000',
+    marginTop: "50%",
+    color: "#000000",
   },
   orderContainer: {
     marginBottom: 20,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#7ceadd',
-    shadowColor: '#000',
+    backgroundColor: "#7ceadd",
+    shadowColor: "#000",
     shadowOffset: { width: 1, height: 4 },
     shadowOpacity: 0.55,
     shadowRadius: 0.84,
