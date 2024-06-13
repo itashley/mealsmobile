@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ORDERIMG from "../assets/icons/order.png";
+import ORDERIMG from "../assets/icons/order2.png";
 import HISTORYIMG from "../assets/icons/list.png";
 import BG from "../assets/bg/bg.jpg";
 
@@ -43,7 +43,7 @@ export default function HomeScreen({ navigation }) {
     console.log("current Hour : ", currentHour);
     console.log("current Minutes : ", currentMinutes);
 
-    if (currentHour < 3) {
+    if (currentHour < 12) {
       console.log("It is not the correct time (before 12pm");
       Alert.alert(
         "Orders Unavailable",

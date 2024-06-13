@@ -213,10 +213,10 @@ export default function FormScreen({ navigation }) {
       currentHour < 12
     ) {
       console.log("It is not the correct time (before 12pm or after 17pm)");
-      return false; //supposed to be true
+      return true; //supposed to be true
     } else {
       console.log("You are in the correct time (12.00-17.00)");
-      return true;
+      return false;
     }
   };
 
