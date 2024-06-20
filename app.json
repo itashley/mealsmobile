@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "mealsapp",
+    "name": "Ashley Meals",
     "slug": "mealsapp",
     "version": "1.0.0",
     "jsEngine": "hermes",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icons/meal.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/icons/mealscreen.png",
@@ -16,13 +16,13 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+      "mealsIcon": {
+        "foregroundImage": "./assets/icons/meal.png",
+        "backgroundColor": "#FFFDD0"
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/icons/meal.png",
       "meta": {
         "viewport": "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
       },
