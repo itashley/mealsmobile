@@ -283,15 +283,16 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    marginTop: "20%",
+    marginTop: "12%",
   },
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 45,
   },
   scrollViewContent: {
     flexGrow: 1,
-    paddingBottom: 0, // Adjust paddingBottom to accommodate the Submit button
+    paddingLeft: 25,
+    paddingBottom: 20,
   },
   formRow: {
     marginBottom: 20,
@@ -330,7 +331,7 @@ const styles = StyleSheet.create({
   forDate: {
     fontSize: 20,
     marginBottom: 20,
-    marginTop: 5,
+    marginTop: 10,
     fontWeight: "bold",
   },
 });

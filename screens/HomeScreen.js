@@ -27,6 +27,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await AsyncStorage.getItem("user");
+
       if (userData) {
         const user = JSON.parse(userData);
         setHoteName(user.nm_hotel);
@@ -43,15 +44,16 @@ export default function HomeScreen({ navigation }) {
     console.log("current Hour : ", currentHour);
     console.log("current Minutes : ", currentMinutes);
 
-    if (currentHour < 12) {
+    // supposed to be currentHour > 12 && currentHour < 17
+    if (currentHour > 12 && currentHour < 17) {
+      console.log("You are in the correct time (12.00-17.00)");
+      navigation.navigate("Form Order");
+    } else {
       console.log("It is not the correct time (before 12pm");
       Alert.alert(
         "Orders Unavailable",
         "Orders can only be placed between 12:00 PM and 5:00 PM. Please try again during this time."
       );
-    } else {
-      console.log("You are in the correct time (12.00-17.00)");
-      navigation.navigate("Form Order");
     }
   };
 

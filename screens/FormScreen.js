@@ -371,15 +371,17 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    marginTop: "20%",
+    marginTop: "12%",
   },
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 45,
+    //paddingHorizontal: 25,
   },
   scrollViewContent: {
     flexGrow: 1,
-    paddingBottom: 45, // previously 25
+    paddingLeft: 25,
+    paddingBottom: 75, // previously 25
   },
   formRow: {
     marginBottom: 20,
@@ -415,9 +417,9 @@ const styles = StyleSheet.create({
   },
   submitButton: {
     position: "absolute",
-    bottom: 6,
-    left: 0,
-    right: 20,
+    bottom: 30,
+    left: 22,
+    right: 22,
     backgroundColor: "#FF0000",
     borderRadius: 10,
     paddingVertical: 15,
@@ -431,7 +433,7 @@ const styles = StyleSheet.create({
   forDate: {
     fontSize: 20,
     marginBottom: 3,
-    marginTop: 0,
+    marginTop: 10,
     fontWeight: "bold",
   },
   dateInfo: {

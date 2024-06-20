@@ -116,11 +116,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 15,
   },
   scrollViewContent: {
     flexGrow: 1,
-    paddingBottom: 100, // Adjust paddingBottom to accommodate the Submit button
+    paddingTop: 25,
+    paddingBottom: 100,
+    paddingHorizontal: 25,
   },
   loadingContainer: {
     flex: 1,
@@ -142,10 +144,10 @@ const styles = StyleSheet.create({
     color: "#000000",
   },
   orderContainer: {
-    marginBottom: 20,
+    marginBottom: 30,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#7ceadd",
+    backgroundColor: "#ffce59",
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 4 },
     shadowOpacity: 0.55,

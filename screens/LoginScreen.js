@@ -95,7 +95,8 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4A00E0",
+    //backgroundColor: "#4A00E0",
+    backgroundColor: "#FF7F50",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -107,7 +108,8 @@ const styles = StyleSheet.create({
     marginTop: "10%",
     width: 80,
     height: 80,
-    backgroundColor: "#00E0FF",
+    //backgroundColor: "#00E0FF",
+    backgroundColor: "#7ceadd",
     borderRadius: 50,
     marginLeft: 120,
   },
@@ -121,11 +123,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   pinkText: {
-    color: "#FF00FF",
+    //color: "#FF00FF",
+    color: "#7ceadd",
   },
   subtitle: {
     fontSize: 16,
-    color: "#FF00FF",
+    //color: "#FF00FF",
+    color: "#7ceadd",
     textAlign: "center",
     marginBottom: 40,
   },
@@ -137,13 +141,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   signInButton: {
-    backgroundColor: "#FF00FF",
+    //backgroundColor: "#FF00FF",
+    backgroundColor: "#7ceadd",
     borderWidth: 1,
     borderColor: "#FFFFFF",
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: "#000",
     fontSize: 18,
+    fontWeight: "bold",
   },
   input: {
     width: "80%",

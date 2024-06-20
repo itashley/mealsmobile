@@ -9,14 +9,21 @@ import HomeScreen from "./screens/HomeScreen";
 import FormScreen from "./screens/FormScreen";
 import HistoryListScreen from "./screens/HistoryListScreen";
 import DetailOrderScreen from "./screens/DetailOrderScreen";
+import SplashScreenComponent from "./screens/SplashScreen";
+import * as ExpoSplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
+
+// Keep the splash screen visible while fetching resources
+ExpoSplashScreen.preventAutoHideAsync();
 
 const AuthLoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const checkToken = async () => {
       const userToken = await AsyncStorage.getItem("userToken");
       navigation.navigate(userToken ? "Home" : "Login");
+      // Hide the splash screen after navigation
+      await ExpoSplashScreen.hideAsync();
     };
 
     checkToken();
@@ -30,6 +37,18 @@ const AuthLoadingScreen = ({ navigation }) => {
 };
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); // Show splash screen for 3 seconds
+  }, []);
+
+  if (isLoading) {
+    return <SplashScreenComponent />;
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="AuthLoading">
@@ -56,7 +75,6 @@ function App() {
             headerTitle: "Order Form", // Optionally, you can set an empty header title
           }}
         />
-
         <Stack.Screen
           name="History Order"
           component={HistoryListScreen}
@@ -65,7 +83,6 @@ function App() {
             headerTitle: "Order History", // Optionally, you can set an empty header title
           }}
         />
-
         <Stack.Screen
           name="Detail Order"
           component={DetailOrderScreen}
@@ -74,7 +91,6 @@ function App() {
             headerTitle: "Order Detail", // Optionally, you can set an empty header title
           }}
         />
-        {/* <Stack.Screen name="Details" component={DetailsScreen} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
