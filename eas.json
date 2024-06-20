@@ -6,6 +6,9 @@
     "preview": {
       "android": {
         "buildType": "apk"
+      },
+      "hooks": {
+        "pre-build": "./eas-build-pre-install.sh"
       }
     },
     "preview2": {
