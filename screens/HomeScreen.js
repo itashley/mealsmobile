@@ -12,8 +12,8 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import ORDERIMG from "../assets/icons/order2.png";
-import HISTORYIMG from "../assets/icons/list.png";
+import ORDERIMG from "../assets/icons/order3.png";
+import HISTORYIMG from "../assets/icons/list2.png";
 import BG from "../assets/bg/bg.jpg";
 
 export default function HomeScreen({ navigation }) {
