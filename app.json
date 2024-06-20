@@ -19,7 +19,8 @@
       "mealsIcon": {
         "foregroundImage": "./assets/icons/meal.png",
         "backgroundColor": "#FFFDD0"
-      }
+      },
+      "package": "com.ashley.mealsapp"
     },
     "web": {
       "favicon": "./assets/icons/meal.png",
@@ -28,6 +29,13 @@
       },
       "template": "./expo/web/index.html"
     },
-    "plugins": ["expo-font"]
+    "plugins": [
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1a628cd1-c5d8-4219-9a54-74e267204443"
+      }
+    }
   }
 }
