@@ -9,20 +9,29 @@ import {
   ImageBackground,
   Image,
   Alert,
+  BackHandler,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ORDERIMG from "../assets/icons/order3.png";
 import HISTORYIMG from "../assets/icons/list2.png";
 import BG from "../assets/bg/bg.jpg";
+import Dialog from "react-native-dialog";
+import DENY from "../assets/icons/denied.png";
 
 export default function HomeScreen({ navigation }) {
   const handleLogout = async () => {
     await AsyncStorage.removeItem("userToken");
-    navigation.navigate("Login");
+    await AsyncStorage.removeItem("user");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Login" }],
+    });
   };
 
-  const [hotelName, setHoteName] = useState("ASHLEY");
+  const [hotelName, setHotelName] = useState("ASHLEY");
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -30,11 +39,23 @@ export default function HomeScreen({ navigation }) {
 
       if (userData) {
         const user = JSON.parse(userData);
-        setHoteName(user.nm_hotel);
+        setHotelName(user.nm_hotel);
       }
     };
 
     fetchUser();
+
+    const backAction = () => {
+      BackHandler.exitApp();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   const handleOrderPress = () => {
@@ -45,15 +66,19 @@ export default function HomeScreen({ navigation }) {
     console.log("current Minutes : ", currentMinutes);
 
     // supposed to be currentHour > 12 && currentHour < 17
-    if (currentHour > 12 && currentHour < 17) {
+    if (currentHour >= 12 && currentHour < 17) {
       console.log("You are in the correct time (12.00-17.00)");
       navigation.navigate("Form Order");
     } else {
       console.log("It is not the correct time (before 12pm");
-      Alert.alert(
-        "Orders Unavailable",
+      // Alert.alert(
+      //   "Orders Unavailable",
+      //   "Orders can only be placed between 12:00 PM and 5:00 PM. Please try again during this time."
+      // );
+      setDialogMessage(
         "Orders can only be placed between 12:00 PM and 5:00 PM. Please try again during this time."
       );
+      setDialogVisible(true);
     }
   };
 
@@ -83,6 +108,33 @@ export default function HomeScreen({ navigation }) {
         <Pressable style={styles.orderButton} onPress={handleLogout}>
           <Text style={styles.orderButtonText}>Sign Out</Text>
         </Pressable>
+        <Dialog.Container
+          visible={dialogVisible}
+          contentStyle={styles.dialogContainer}
+        >
+          <View style={styles.dialogContent}>
+            <View style={{ alignItems: "center" }}>
+              <Image source={DENY} style={styles.errIcon} />
+            </View>
+
+            <Dialog.Title style={styles.dialogTitle}>
+              Orders Unavailable
+            </Dialog.Title>
+            <View style={styles.descContainer}>
+              <Dialog.Description style={styles.dialogDescription}>
+                {dialogMessage}
+              </Dialog.Description>
+            </View>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Dialog.Button
+              style={styles.dialogButton}
+              label="OK"
+              onPress={() => setDialogVisible(false)}
+            />
+          </View>
+        </Dialog.Container>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -98,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // backgroundColor: 'rgba(255, 255, 255, 0.5)', // Semi-transparent white background
     padding: 20,
-    marginTop: "-20%",
+    marginTop: "-12%",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -172,6 +224,57 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 22,
     textAlign: "center",
+    fontWeight: "bold",
+  },
+  dialogContainer: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 10,
+    padding: 0,
+    elevation: 5, // Shadow on Android
+    shadowColor: "#000000", // Shadow on iOS
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+  },
+  dialogContent: {
+    alignItems: "center", // Center items horizontally
+    paddingBottom: 0, // Adjust spacing as needed
+  },
+  errIcon: {
+    width: 60,
+    height: 60,
+    tintColor: "#ff0000",
+    marginTop: -8,
+    marginRight: 6,
+  },
+  dialogTitle: {
+    fontSize: 26,
+    fontWeight: "500",
+    marginTop: 8,
+    color: "#000", // Example of custom title color
+    marginHorizontal: 10,
+  },
+  descContainer: {
+    paddingHorizontal: 30,
+    marginBottom: 8,
+  },
+  dialogDescription: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#8f8f8f", // Example of custom description color
+    textAlign: "center", // Optional: Adjust text alignment
+  },
+  buttonContainer: {},
+  dialogButton: {
+    backgroundColor: "#C5F9F6",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 60,
+    marginTop: 10,
+    marginBottom: 20,
+    marginLeft: 5,
+    color: "#000",
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

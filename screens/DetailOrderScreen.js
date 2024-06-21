@@ -11,6 +11,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Platform,
+  BackHandler,
 } from "react-native";
 import BG from "../assets/bg/bg.jpg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -64,13 +65,17 @@ export default function DetailOrderScreen({ navigation, route }) {
   };
 
   useEffect(() => {
-    // Side effect code here
-    console.log("Component rendered or updated");
-
-    return () => {
-      // Cleanup function
-      console.log("Component unmounted or effect re-run");
+    const backAction = () => {
+      navigation.navigate("History Order");
+      return true;
     };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
   });
 
   const handleInputChange = (text, id_order, field) => {

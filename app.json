@@ -8,7 +8,7 @@
     "icon": "./assets/icons/meal.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icons/mealscreen.png",
+      "image": "./assets/icons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFDD0"
     },
@@ -17,7 +17,7 @@
     },
     "android": {
       "mealsIcon": {
-        "foregroundImage": "./assets/icons/meal.png",
+        "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#FFFDD0"
       },
       "package": "com.ashley.mealsapp"
@@ -29,9 +29,7 @@
       },
       "template": "./expo/web/index.html"
     },
-    "plugins": [
-      "expo-font"
-    ],
+    "plugins": ["expo-font"],
     "extra": {
       "eas": {
         "projectId": "1a628cd1-c5d8-4219-9a54-74e267204443"

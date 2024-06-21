@@ -20,10 +20,24 @@ ExpoSplashScreen.preventAutoHideAsync();
 const AuthLoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const checkToken = async () => {
-      const userToken = await AsyncStorage.getItem("userToken");
-      navigation.navigate(userToken ? "Home" : "Login");
-      // Hide the splash screen after navigation
-      await ExpoSplashScreen.hideAsync();
+      try {
+        const userToken = await AsyncStorage.getItem("userToken");
+        if (userToken) {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "Home" }],
+          });
+        } else {
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "Login" }],
+          });
+        }
+      } catch (e) {
+        console.error("Failed to load token", e);
+      } finally {
+        await ExpoSplashScreen.hideAsync();
+      }
     };
 
     checkToken();
@@ -40,9 +54,18 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000); // Show splash screen for 3 seconds
+    const prepare = async () => {
+      try {
+        await ExpoSplashScreen.preventAutoHideAsync();
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000); // Show splash screen for 3 seconds
+      } catch (e) {
+        console.error("Error hiding splash screen", e);
+      }
+    };
+
+    prepare();
   }, []);
 
   if (isLoading) {

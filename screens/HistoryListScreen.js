@@ -9,6 +9,7 @@ import {
   ImageBackground,
   ScrollView,
   ActivityIndicator,
+  BackHandler,
 } from "react-native";
 import BG from "../assets/bg/bg.jpg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -56,9 +57,17 @@ export default function HistoryListScreen({ navigation }) {
 
       fetchUser();
 
-      return () => {
-        console.log("Screen Unfocused");
+      const backAction = () => {
+        navigation.navigate("Home");
+        return true;
       };
+
+      const backHandler = BackHandler.addEventListener(
+        "hardwareBackPress",
+        backAction
+      );
+
+      return () => backHandler.remove();
     }, [])
   );
 
@@ -112,11 +121,11 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    marginTop: "20%",
+    marginTop: "12%",
   },
   container: {
     flex: 1,
-    paddingTop: 15,
+    paddingTop: 45,
   },
   scrollViewContent: {
     flexGrow: 1,
