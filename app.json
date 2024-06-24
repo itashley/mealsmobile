@@ -12,14 +12,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#FFFDD0"
     },
+    "androidStatusBar": {
+      "backgroundColor": "#000000",
+      "barStyle": "light-content",
+      "translucent": true
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+        "UIViewControllerBasedStatusBarAppearance": false
+      }
     },
     "android": {
-      "mealsIcon": {
-        "foregroundImage": "./assets/icons/adaptive-icon.png",
-        "backgroundColor": "#FFFDD0"
-      },
       "package": "com.ashley.mealsapp"
     },
     "web": {

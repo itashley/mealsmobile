@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator, StatusBar, AppState } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/LoginScreen";
-import LoginScreenCopy from "./screens/LoginScreenCopy";
 import HomeScreen from "./screens/HomeScreen";
 import FormScreen from "./screens/FormScreen";
 import HistoryListScreen from "./screens/HistoryListScreen";
 import DetailOrderScreen from "./screens/DetailOrderScreen";
-import SplashScreenComponent from "./screens/SplashScreen";
 import * as ExpoSplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
@@ -68,12 +66,39 @@ function App() {
     prepare();
   }, []);
 
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === "active") {
+        StatusBar.setHidden(false);
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   if (isLoading) {
-    return <SplashScreenComponent />;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   return (
     <NavigationContainer>
+      <StatusBar
+        translucent={true}
+        //backgroundColor="#FF7F50"
+        backgroundColor="black"
+        barStyle="light-content"
+      />
       <Stack.Navigator initialRouteName="AuthLoading">
         <Stack.Screen
           name="AuthLoading"
@@ -88,7 +113,7 @@ function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, headerTransparent: true }}
         />
         <Stack.Screen
           name="Form Order"

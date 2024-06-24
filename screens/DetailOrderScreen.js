@@ -30,6 +30,7 @@ export default function DetailOrderScreen({ navigation, route }) {
   const [userID, setUserID] = useState();
   const [hotelID, setHotelID] = useState();
   const [inputValues, setInputValues] = useState({});
+  const [total, setTotal] = useState(0);
 
   const fetchDataOrder = async (hotelid, orderDate) => {
     setLoading(true);
@@ -54,6 +55,8 @@ export default function DetailOrderScreen({ navigation, route }) {
           };
         });
         setInputValues(initialInputValues);
+        console.log("input values: ", initialInputValues);
+        calculateTotal(initialInputValues);
       } else {
         console.log("No data found for this order");
       }
@@ -108,6 +111,30 @@ export default function DetailOrderScreen({ navigation, route }) {
     }
   };
 
+  const calculateTotal = (inputValues) => {
+    let sum = 0;
+
+    departments.forEach((dept) => {
+      const deptValues = inputValues[dept.id_order];
+
+      if (deptValues) {
+        console.log("dV morning : ", deptValues.M_amount);
+        console.log("dV afternoon : ", deptValues.A_amount);
+        console.log("dV evening : ", deptValues.E_amount);
+
+        sum +=
+          Number(deptValues.M_amount) +
+          Number(deptValues.A_amount) +
+          Number(deptValues.E_amount);
+      }
+    });
+
+    // Update the total state
+    setTotal(sum);
+    console.log("sum: ", sum);
+    console.log("total dari calculate : ", total);
+  };
+
   useFocusEffect(
     React.useCallback(() => {
       const fetchUser = async () => {
@@ -136,6 +163,10 @@ export default function DetailOrderScreen({ navigation, route }) {
       };
     }, [])
   );
+
+  useEffect(() => {
+    calculateTotal(inputValues);
+  }, [inputValues]);
 
   const downloadAsPDF = async () => {
     try {
@@ -262,6 +293,14 @@ export default function DetailOrderScreen({ navigation, route }) {
                   </View>
                 </View>
               ))}
+              <View style={styles.inputGroupTotal}>
+                <Text style={styles.inputLabelTotal}>Total</Text>
+                <TextInput
+                  style={styles.input}
+                  value={total.toString()}
+                  editable={false}
+                />
+              </View>
             </ScrollView>
           </View>
         </View>
@@ -338,5 +377,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 10,
     fontWeight: "bold",
+  },
+  inputGroupTotal: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 40,
+  },
+  inputLabelTotal: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginRight: 0,
+    width: 230,
+    textDecorationLine: "underline", // Add underline
+    textDecorationColor: "#000", // Optional: specify underline color
+    textDecorationStyle: "solid", // Optional: specify underline style
   },
 });
