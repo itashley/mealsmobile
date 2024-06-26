@@ -67,7 +67,7 @@ export default function HomeScreen({ navigation }) {
     console.log("current Minutes : ", currentMinutes);
 
     // supposed to be currentHour > 12 && currentHour < 17
-    if (currentHour < 12 && currentHour < 17) {
+    if (currentHour > 12 && currentHour < 17) {
       console.log("You are in the correct time (12.00-17.00)");
       navigation.navigate("Form Order");
     } else {
