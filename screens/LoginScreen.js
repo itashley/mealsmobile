@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  KeyboardAvoidingView,
+  ScrollView,
   Image,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
@@ -68,70 +70,82 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.header}>
-        <View style={styles.icon}></View>
-      </View>
-      <Text style={styles.title}>
-        Ashley{"\n"}
-        <Text style={styles.pinkText}>Meals{"\n"}</Text>
-        here!
-      </Text>
-      <Text style={styles.subtitle}>Lapor makanan mu, kalo gak mau lapar!</Text>
-      <TextInput
-        style={[styles.input, styles.textInput]}
-        placeholder="Email"
-        placeholderTextColor="#CCCCCC"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        style={[styles.input, styles.textInput]}
-        placeholder="Password"
-        placeholderTextColor="#CCCCCC"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TouchableOpacity
-        style={[styles.button, styles.signInButton]}
-        onPress={handleSubmit}
-        disabled={loading}
-      >
-        <Text style={styles.buttonText}>
-          {loading ? "Signing In..." : "Sign In"}
-        </Text>
-      </TouchableOpacity>
-
-      <Dialog.Container
-        visible={dialogVisible}
-        contentStyle={styles.dialogContainer}
-      >
-        <View style={styles.dialogContent}>
-          <View style={{ alignItems: "center" }}>
-            <Image source={ERROR} style={styles.errIcon} />
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.container}>
+          <StatusBar style="auto" />
+          <View style={styles.header}>
+            <View style={styles.icon}></View>
           </View>
-
-          <Dialog.Title style={styles.dialogTitle}>Login Failed</Dialog.Title>
-          <Dialog.Description style={styles.dialogDescription}>
-            {dialogMessage}
-          </Dialog.Description>
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Dialog.Button
-            style={styles.dialogButton}
-            label="OK"
-            onPress={() => setDialogVisible(false)}
+          <Text style={styles.title}>
+            Ashley{"\n"}
+            <Text style={styles.pinkText}>Meals{"\n"}</Text>
+            here!
+          </Text>
+          <Text style={styles.subtitle}>
+            Lapor makanan mu, kalo gak mau lapar!
+          </Text>
+          <TextInput
+            style={[styles.input, styles.textInput]}
+            placeholder="Email"
+            placeholderTextColor="#CCCCCC"
+            value={email}
+            onChangeText={setEmail}
           />
+          <TextInput
+            style={[styles.input, styles.textInput]}
+            placeholder="Password"
+            placeholderTextColor="#CCCCCC"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+          />
+          <TouchableOpacity
+            style={[styles.button, styles.signInButton]}
+            onPress={handleSubmit}
+            disabled={loading}
+          >
+            <Text style={styles.buttonText}>
+              {loading ? "Signing In..." : "Sign In"}
+            </Text>
+          </TouchableOpacity>
+
+          <Dialog.Container
+            visible={dialogVisible}
+            contentStyle={styles.dialogContainer}
+          >
+            <View style={styles.dialogContent}>
+              <View style={{ alignItems: "center" }}>
+                <Image source={ERROR} style={styles.errIcon} />
+              </View>
+
+              <Dialog.Title style={styles.dialogTitle}>
+                Login Failed
+              </Dialog.Title>
+              <Dialog.Description style={styles.dialogDescription}>
+                {dialogMessage}
+              </Dialog.Description>
+            </View>
+
+            <View style={styles.buttonContainer}>
+              <Dialog.Button
+                style={styles.dialogButton}
+                label="OK"
+                onPress={() => setDialogVisible(false)}
+              />
+            </View>
+          </Dialog.Container>
         </View>
-      </Dialog.Container>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
     //backgroundColor: "#4A00E0",

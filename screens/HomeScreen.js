@@ -10,8 +10,9 @@ import {
   Image,
   Alert,
   BackHandler,
+  StatusBar,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
+//import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ORDERIMG from "../assets/icons/order3.png";
 import HISTORYIMG from "../assets/icons/list2.png";
@@ -66,7 +67,7 @@ export default function HomeScreen({ navigation }) {
     console.log("current Minutes : ", currentMinutes);
 
     // supposed to be currentHour > 12 && currentHour < 17
-    if (currentHour >= 12 && currentHour < 17) {
+    if (currentHour < 12 && currentHour < 17) {
       console.log("You are in the correct time (12.00-17.00)");
       navigation.navigate("Form Order");
     } else {
@@ -88,6 +89,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <ImageBackground source={BG} style={styles.background} resizeMode="cover">
+      <StatusBar backgroundColor="#000000" barStyle="light-content" />
       <SafeAreaView style={styles.container}>
         <Text style={styles.title}>MEALS</Text>
         <Text style={styles.pinkText}>ORDER</Text>

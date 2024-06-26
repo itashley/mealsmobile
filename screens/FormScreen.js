@@ -12,6 +12,7 @@ import {
   Alert,
   BackHandler,
   Image,
+  StatusBar,
 } from "react-native";
 import BG from "../assets/bg/bg.jpg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -276,6 +277,7 @@ export default function FormScreen({ navigation }) {
     console.log("current Minutes : ", currentMinutes);
 
     // Check if the current time is after or equal to 17:00
+    // supposed to be currentHour > 17 || (currentHour === 17 && currentMinutes >= 0) || currentHour < 12
     if (
       currentHour > 17 ||
       (currentHour === 17 && currentMinutes >= 0) ||
@@ -468,7 +470,7 @@ export default function FormScreen({ navigation }) {
               <View style={styles.inputGroupTotal}>
                 <Text style={styles.inputLabelTotal}>Total</Text>
                 <TextInput
-                  style={styles.input}
+                  style={styles.inputTotal}
                   placeholder="0"
                   keyboardType="numeric"
                   value={total.toString()}
@@ -599,6 +601,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 2,
     color: "#000",
+  },
+  inputTotal: {
+    height: 40,
+    width: 60,
+    borderRadius: 20,
+    fontSize: 16,
+    textAlign: "center",
+    borderColor: "gray",
+    borderWidth: 1,
+    paddingHorizontal: 2,
+    color: "#000",
+    backgroundColor: "#fff",
   },
   submitButton: {
     position: "absolute",
