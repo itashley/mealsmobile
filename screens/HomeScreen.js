@@ -17,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ORDERIMG from "../assets/icons/order3.png";
 import HISTORYIMG from "../assets/icons/list2.png";
 import BG from "../assets/bg/bg.jpg";
+import LOVE from "../assets/icons/heart.png";
 import Dialog from "react-native-dialog";
 import DENY from "../assets/icons/denied.png";
 
@@ -110,6 +111,12 @@ export default function HomeScreen({ navigation }) {
         <Pressable style={styles.orderButton} onPress={handleLogout}>
           <Text style={styles.orderButtonText}>Sign Out</Text>
         </Pressable>
+
+        <View style={styles.createdWrapper}>
+          <Text style={styles.createdBy}>Created by IT AHG</Text>
+          <Image source={LOVE} style={styles.loveIcon} />
+        </View>
+
         <Dialog.Container
           visible={dialogVisible}
           contentStyle={styles.dialogContainer}
@@ -227,6 +234,24 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  createdWrapper: {
+    position: "absolute",
+    bottom: 50,
+    flex: 1,
+    flexDirection: "row",
+  },
+  createdBy: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#FF7F50",
+    //color: "#8f8f8f",
+  },
+  loveIcon: {
+    width: 10,
+    height: 10,
+    marginTop: 4,
+    marginLeft: 4,
   },
   dialogContainer: {
     backgroundColor: "#FFFFFF",

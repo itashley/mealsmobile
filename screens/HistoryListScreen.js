@@ -105,6 +105,9 @@ export default function HistoryListScreen({ navigation }) {
                     </Text>
                   </Pressable>
                 ))}
+                <Text style={styles.onlyShow}>
+                  *Only Showing the Last 30 Days
+                </Text>
               </ScrollView>
             )}
           </View>
@@ -130,7 +133,7 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
     paddingTop: 25,
-    paddingBottom: 100,
+    paddingBottom: 50,
     paddingHorizontal: 25,
   },
   loadingContainer: {
@@ -170,5 +173,12 @@ const styles = StyleSheet.create({
   orderDate: {
     fontSize: 22,
     marginBottom: 5,
+  },
+  onlyShow: {
+    paddingTop: 70,
+    fontSize: 14,
+    marginLeft: 2,
+    //fontWeight: "bold",
+    //textAlign: "center",
   },
 });
