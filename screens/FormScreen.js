@@ -13,6 +13,7 @@ import {
   BackHandler,
   Image,
   StatusBar,
+  KeyboardAvoidingView,
 } from "react-native";
 import BG from "../assets/bg/bg.jpg";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -388,7 +389,17 @@ export default function FormScreen({ navigation }) {
         </View>
       ) : (
         <View style={styles.safeArea}>
-          <View style={styles.container}>
+          <KeyboardAvoidingView
+            style={{
+              paddingTop: 45,
+              flex: 1,
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+            behavior="padding"
+            enabled
+            keyboardVerticalOffset={150}
+          >
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
               <Text style={styles.forDate}>
                 Order for {tomorrow.format("dddd")}, {tomorrow.format("LL")}.
@@ -486,7 +497,7 @@ export default function FormScreen({ navigation }) {
                 </Text>
               </TouchableOpacity>
             </ScrollView>
-          </View>
+          </KeyboardAvoidingView>
           <Dialog.Container
             visible={dialogVisible}
             contentStyle={styles.dialogContainer}
@@ -543,11 +554,6 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     marginTop: "12%",
-  },
-  container: {
-    flex: 1,
-    paddingTop: 45,
-    //paddingHorizontal: 25,
   },
   scrollViewContent: {
     flexGrow: 1,
