@@ -78,7 +78,7 @@ export default function HomeScreen({ navigation }) {
       //   "Orders can only be placed between 12:00 PM and 5:00 PM. Please try again during this time."
       // );
       setDialogMessage(
-        "Orders can only be placed between 12:00 PM and 5:00 PM. Please try again during this time."
+        "Orders can only be placed between 12:00 PM and 17:00 PM. Please try again during this time."
       );
       setDialogVisible(true);
     }

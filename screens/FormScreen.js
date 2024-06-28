@@ -304,7 +304,7 @@ export default function FormScreen({ navigation }) {
       // );
       setDialogTitle("Submission Unavailable");
       setDialogMessage(
-        "Order submissions or updates are not allowed after 5:00 PM WIB."
+        "Order submissions or updates are not allowed after 17:00 PM WIB."
       );
       setDialogVisible(true);
 
@@ -398,7 +398,6 @@ export default function FormScreen({ navigation }) {
             }}
             behavior="padding"
             enabled
-            keyboardVerticalOffset={150}
           >
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
               <Text style={styles.forDate}>
